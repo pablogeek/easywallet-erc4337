@@ -2,9 +2,17 @@ import { ethers } from "ethers";
 import { Presets } from "userop";
 import config from "../../../config.json";
 import crypto from "crypto"
+import { UserRepository } from "../repositories/users/UsersRepository";
+import { UserRepositoryImpl } from "../repositories/users/UsersRepositoryImpl";
+import db from "../database/database"
 
 export class LoginService {
     saltSelected: string | undefined
+    private userRepository: UserRepository
+
+    constructor(userRepository: UserRepository) {
+        this.userRepository = userRepository;
+    }
 
     login = async (username: string, password: string) => {
         // config.signingKey
@@ -23,10 +31,15 @@ export class LoginService {
         return address
     }
 
+    signup = async (username: string, password: string) => {
+        const user = await this.userRepository.userByUsername(username)
+        return this.userRepository.insert(username, password, "salt") 
+    }
+
     private generateSalt = (): string => {
         const salt = crypto.randomBytes(16).toString('hex');
         return salt;
     }
 }
 
-export default new LoginService()
+export default new LoginService(new UserRepositoryImpl(db))

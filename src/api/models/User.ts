@@ -1,4 +1,4 @@
-class User {
+export class User {
     id: string;
     name: string;
     email: string;
@@ -11,5 +11,3 @@ class User {
         this.salt = salt;
     }
 }
-
-module.exports = User;
