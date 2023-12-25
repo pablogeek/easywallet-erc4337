@@ -31,9 +31,9 @@ export class LoginService {
         return address
     }
 
-    signup = async (username: string, password: string) => {
-        const user = await this.userRepository.userByUsername(username)
-        return this.userRepository.insert(username, password, "salt") 
+    signup = async (email: string, password: string) => {
+        const user = await this.userRepository.userByEmail(email)
+        return this.userRepository.insert(email, password, "salt") 
     }
 
     private generateSalt = (): string => {
