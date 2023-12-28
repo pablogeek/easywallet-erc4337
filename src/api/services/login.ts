@@ -14,13 +14,14 @@ export class LoginService {
         this.userRepository = userRepository;
     }
 
-    login = async (username: string, password: string) => {
+    login = async (email: string, password: string) => {
         // config.signingKey
-        if (this.saltSelected === undefined) {
-            const salt = this.generateSalt() 
-            this.saltSelected = salt
+        const user = await this.userRepository.userByEmail(email);
+        if (user === undefined) {
+            throw "user doesn't exist";
         }
-        const signingKey = '0x' + crypto.pbkdf2Sync(password, this.saltSelected, 10000, 32, "sha512").toString('hex');
+        
+        const signingKey = '0x' + crypto.pbkdf2Sync(password, user!.salt, 10000, 32, "sha512").toString('hex');
         console.log(signingKey);
         console.log(config.signingKey);
         const simpleAccount = await Presets.Builder.SimpleAccount.init(
@@ -32,8 +33,12 @@ export class LoginService {
     }
 
     signup = async (email: string, password: string) => {
-        const user = await this.userRepository.userByEmail(email)
-        return this.userRepository.insert(email, password, "salt") 
+        const salt = this.generateSalt();
+        const user = await this.userRepository.userByEmail(email);
+        if (user !== undefined) {
+            return false;
+        }
+        return this.userRepository.insert(email, password, salt);
     }
 
     private generateSalt = (): string => {
