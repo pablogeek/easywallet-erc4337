@@ -5,7 +5,7 @@ export class LoginController {
     login = async (req: express.Request, res: express.Response) => {
 		try {
             const key = await loginService.login(req.body.username, req.body.password)
-			res.json({key: key})
+			res.json({address: key})
 		}
 		catch (err) {
 		    res.status(500).send(err)
@@ -15,7 +15,7 @@ export class LoginController {
     signup = async (req: express.Request, res: express.Response) => {
 		try {
             const key = await loginService.signup(req.body.username, req.body.password)
-			res.json({key: key})
+			res.json({address: key})
 		}
 		catch (err) {
 		    res.status(500).send(err)
