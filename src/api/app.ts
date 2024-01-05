@@ -1,5 +1,7 @@
 import express from 'express';
-import loginRouter from './routes/login'
+import loginRouter from './routes/login';
+import operationsRouter from './routes/operations';
+import cors from 'cors';
 var db = require("./database/database")
 
 export class App {
@@ -8,6 +10,7 @@ export class App {
 
   constructor() {
     this.server = express();
+    this.server.use(cors());
 
     this.middlewares();
     this.routes();
@@ -19,6 +22,7 @@ export class App {
   
   routes() {
     this.server.use('/api/login', loginRouter);
+    this.server.use('/api/operations', operationsRouter);
   }
 }
 

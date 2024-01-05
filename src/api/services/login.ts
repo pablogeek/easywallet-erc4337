@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { Presets } from "userop";
 import config from "../../../config.json";
-import crypto from "crypto"
+import crypto from "crypto";
 import { UserRepository } from "../repositories/users/UsersRepository";
 import { UserRepositoryImpl } from "../repositories/users/UsersRepositoryImpl";
 import db from "../database/database"
@@ -17,6 +17,7 @@ export class LoginService {
     login = async (email: string, password: string) => {
         // config.signingKey
         const user = await this.userRepository.userByEmail(email);
+        console.log('login ' + email);
         if (user === undefined) {
             throw "user doesn't exist";
         }
@@ -28,7 +29,7 @@ export class LoginService {
             new ethers.Wallet(signingKey),
             config.rpcUrl
           );
-          const address = simpleAccount.getSender();
+        const address = simpleAccount.getSender();
         return address
     }
 
