@@ -14,7 +14,7 @@
     "kernel": "ts-node scripts/kernel/index.ts",
     "simpleAccount": "ts-node scripts/simpleAccount/index.ts",
     "start:dev": "nodemon src/api/server.ts",
-    "start:prod": "node dist/api/server.js"
+    "start:prod": "nodemon src/api/server-prod.ts"
   },
   "dependencies": {
     "@inquirer/prompts": "^2.0.0",

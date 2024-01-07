@@ -2,7 +2,6 @@ import express from 'express';
 import loginRouter from './routes/login';
 import operationsRouter from './routes/operations';
 import cors from 'cors';
-var db = require("./database/database")
 
 export class App {
   public server;
