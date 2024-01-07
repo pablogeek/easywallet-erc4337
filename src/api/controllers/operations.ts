@@ -4,11 +4,11 @@ import operationsService from '../services/operations'
 export class OperationsController {
     send = async (req: express.Request, res: express.Response) => {
 		try {
+            console.log('send request');
             const key = await operationsService.send(
                 req.body.address, 
                 req.body.amount, 
-                req.body.username, 
-                req.body.password)
+                req.headers.authorization!)
 			res.json({address: key})
 		}
 		catch (err) {
