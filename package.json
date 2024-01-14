@@ -14,7 +14,8 @@
     "kernel": "ts-node scripts/kernel/index.ts",
     "simpleAccount": "ts-node scripts/simpleAccount/index.ts",
     "start:dev": "nodemon src/api/server.ts",
-    "start:prod": "nodemon src/api/server-prod.ts"
+    "start:prod": "nodemon src/api/server-prod.ts",
+    "heroku-postbuild": "start:dev"
   },
   "dependencies": {
     "@inquirer/prompts": "^2.0.0",
