@@ -1,6 +1,6 @@
 import sqlite3 from 'sqlite3';
 
-const DBSOURCE: string = "var/data/db.sqlite";
+const DBSOURCE: string = "db.sqlite";
 
 let db = new sqlite3.Database(DBSOURCE, (err: Error | null) => {
     if (err) {
